@@ -6,7 +6,7 @@ from app.database.models import (
 )
 
 
-def save_document_tree(root_node, document_name, version_name):
+def save_document_tree(root_node, document_name):
     """
     Save a parsed document tree into the database.
     """
@@ -32,10 +32,20 @@ def save_document_tree(root_node, document_name, version_name):
         # -----------------------------
         # Create version
         # -----------------------------
+        latest_version = (
+                        db.query(DocumentVersion)
+                        .filter(DocumentVersion.document_id == document.id)
+                        .order_by(DocumentVersion.id.desc()).first())
+
+        if latest_version is None:
+            next_version = "v1"
+        else:
+            current = int(latest_version.version_name[1:])
+            next_version = f"v{current + 1}"
+
         version = DocumentVersion(
-            document_id=document.id,
-            version_name=version_name,
-        )
+        document_id=document.id,
+        version_name=next_version,)
 
         db.add(version)
         db.commit()

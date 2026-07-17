@@ -1,11 +1,8 @@
 from app.database.database import Base, engine
-from app.database.models import Document, DocumentVersion, DocumentSection
+import app.database.models
 
 
 def init_db():
-    """
-    Create all database tables.
-    """
     Base.metadata.create_all(bind=engine)
 
 

@@ -1,4 +1,12 @@
-from sqlalchemy import Column, Integer, String, Text, ForeignKey, DateTime
+from sqlalchemy import (
+    Column,
+    Integer,
+    String,
+    Text,
+    ForeignKey,
+    DateTime,
+    Boolean
+)
 from sqlalchemy.orm import relationship
 from datetime import datetime
 
@@ -72,3 +80,31 @@ class DocumentSection(Base):
         "DocumentVersion",
         back_populates="sections"
     )
+    
+    qa_pairs = relationship(
+    "QuestionAnswer",
+    back_populates="section",
+    cascade="all, delete")
+    
+class QuestionAnswer(Base):
+    __tablename__ = "question_answers"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    section_id = Column(
+        Integer,
+        ForeignKey("document_sections.id")
+    )
+
+    question = Column(Text)
+
+    answer = Column(Text)
+
+    is_stale = Column(
+    Boolean,
+    default=False)
+    
+    section = relationship(
+    "DocumentSection",
+    back_populates="qa_pairs"
+)
