@@ -34,4 +34,4 @@ def parse_document(pdf_path):
     
     hash_document(document_tree)
 
-    return node_to_dict(document_tree) 
+    return document_tree

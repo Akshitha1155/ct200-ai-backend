@@ -2,6 +2,8 @@ from fastapi import FastAPI
 
 from app.services.extractor import inspect_pdf
 from app.services.parser import parse_document
+from app.services.serializer import node_to_dict
+from app.services.storage import save_document_tree
 
 app = FastAPI(
     title="CT200 AI Backend",
@@ -33,4 +35,10 @@ def parse():
 
     document_tree = parse_document(pdf_path)
 
-    return document_tree
+    save_document_tree(
+        document_tree,
+        document_name="CT-200 Manual",
+        version_name="v1"
+    )
+
+    return node_to_dict(document_tree)
