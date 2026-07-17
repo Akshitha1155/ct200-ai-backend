@@ -1,0 +1,21 @@
+from enum import Enum
+
+
+class DocumentElementType(str, Enum):
+    DOCUMENT_TITLE = "DOCUMENT_TITLE"
+
+    MAIN_HEADING = "MAIN_HEADING"
+
+    SUB_HEADING = "SUB_HEADING"
+
+    SUB_SUB_HEADING = "SUB_SUB_HEADING"
+
+    PARAGRAPH = "PARAGRAPH"
+
+    LIST_ITEM = "LIST_ITEM"
+
+    TABLE_HEADER = "TABLE_HEADER"
+
+    TABLE_CELL = "TABLE_CELL"
+
+    UNKNOWN = "UNKNOWN"

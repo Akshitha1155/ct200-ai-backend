@@ -26,16 +26,11 @@ def inspect():
     return {
         "message": "Inspection completed. Check the terminal."
     }
-
-
 @app.get("/parse")
 def parse():
 
     pdf_path = "data/ct200_manual.pdf"
 
-    spans = parse_document(pdf_path)
+    document_tree = parse_document(pdf_path)
 
-    return {
-        "total_spans": len(spans),
-        "spans": spans[:10]   # Only show first 10 spans
-    }
+    return document_tree
